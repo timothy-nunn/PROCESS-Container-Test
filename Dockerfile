@@ -31,11 +31,7 @@ RUN apt-get update && apt-get install -y \
     texlive-latex-extra \
     lcov \
     cmake \
-    bc
-
-
-# Install apt packages for pyenv.
-RUN apt-get install -y \
+    bc \
     build-essential \
     curl \
     libbz2-dev \
