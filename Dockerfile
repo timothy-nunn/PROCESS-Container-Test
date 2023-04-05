@@ -2,7 +2,6 @@
 FROM ubuntu:20.04
 LABEL description="Process Ubuntu 20.04 image for running CI jobs"
 
-
 # Required to get around interactive timezone prompt
 ENV DEBIAN_FRONTEND=noninteractive
 
