@@ -3,10 +3,8 @@ name: Docker container build workflow
 on: push
 
 jobs:
-  changes:
+  docker:
     runs-on: ubuntu-latest
-    outputs:
-      build_container: ${{ steps.changes.outputs.effects_container }}
     steps:
       - uses: actions/checkout@v3
       - name: Check for changed files effecting the container
@@ -17,20 +15,15 @@ jobs:
             build_container:
               - 'Dockerfile'
               - 'requirements.txt'
-
-  docker:
-    runs-on: ubuntu-latest
-    needs: changes
-    if: ${{ github.ref == 'refs/heads/master' &&  needs.changes.outputs.build_container }}
-    steps:
-      - uses: actions/checkout@v3
       - name: Login to GitHub Container Registry
+        if: ${{ steps.changes.outputs.build_container && github.ref == 'refs/heads/master' }}
         uses: docker/login-action@v1
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build the PROCESS Docker image
+        if: ${{ steps.changes.outputs.build_container && github.ref == 'refs/heads/master' }}
         run: |
           docker build . -t ghcr.io/timothy-nunn/process-ci:latest
           docker push ghcr.io/timothy-nunn/process-ci:latest
