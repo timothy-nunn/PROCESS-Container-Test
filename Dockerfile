@@ -49,17 +49,14 @@ RUN apt-get update && apt-get install -y \
     xz-utils \
     zlib1g-dev
 
-
 # Install pyenv.
 RUN curl https://pyenv.run | bash
 ENV PYENV_ROOT /root/.pyenv
 ENV PATH $PYENV_ROOT/shims:$PYENV_ROOT/bin:$PYENV_ROOT/versions/3.8.12/bin:$PATH
 
-
 # Install python version 3.8.12 and set as global.
 RUN pyenv install 3.8.12 && \
     pyenv global 3.8.12
-
 
 RUN python -m pip install --upgrade pip && \
     python -m pip install -r /tmp/requirements.txt && \
