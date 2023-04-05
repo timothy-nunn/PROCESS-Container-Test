@@ -6,9 +6,7 @@ LABEL description="Process Ubuntu 20.04 image for running CI jobs"
 # Required to get around interactive timezone prompt
 ENV DEBIAN_FRONTEND=noninteractive
 
-
 COPY requirements.txt /tmp/requirements.txt
-
 
 # Install apt packages
 # gfortran, debugging tools, git, maths and Latex libraries
